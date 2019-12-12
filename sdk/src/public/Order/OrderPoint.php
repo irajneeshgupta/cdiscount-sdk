@@ -107,7 +107,7 @@ class OrderPoint
         $envelopeXML = $envelope->generateXML($bodyXML);
 
 
-        $envelopeXML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:cdis=\"http://www.cdiscount.com\" xmlns:cdis1=\"http://schemas.datacontract.org/2004/07/Cdiscount.Framework.Core.Communication.Messages\"><soapenv:Body><CreateRefundVoucherAfterShipment>".$headerXML.
+        /*$envelopeXML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:cdis=\"http://www.cdiscount.com\" xmlns:cdis1=\"http://schemas.datacontract.org/2004/07/Cdiscount.Framework.Core.Communication.Messages\"><soapenv:Body><CreateRefundVoucherAfterShipment>".$headerXML.
         "<request>
             <OrderNumber>1209041030XVM5M</OrderNumber>
             <SellerRefundRequestList>
@@ -122,7 +122,7 @@ class OrderPoint
                </SellerRefundRequest>
             </SellerRefundRequestList>
          </request>
-      </CreateRefundVoucherAfterShipment></soapenv:Body></soapenv:Envelope>";
+      </CreateRefundVoucherAfterShipment></soapenv:Body></soapenv:Envelope>";*/
 
 
         $response = $this->_sendRequest('CreateRefundVoucherAfterShipment', $envelopeXML);

@@ -34,7 +34,7 @@ class GetOfferListGenericResponse extends iResponse
     /**
      * @var array
      */
-    protected $_dataResponse = null;
+    public $_dataResponse = null;
 
     /**
      * GetOfferListGenericResponse constructor.
@@ -52,6 +52,9 @@ class GetOfferListGenericResponse extends iResponse
      */
     protected function _setOfferListFromXML($offerList)
     {
+        if (!isset($offerList['Offer'][0]) || !is_array($offerList['Offer'][0])) {
+            $offerList['Offer'] = [$offerList['Offer']];
+        }
         foreach ($offerList['Offer'] as $offerXML) {
 
             $offer = new Offer();

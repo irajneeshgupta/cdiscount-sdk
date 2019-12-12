@@ -30,6 +30,16 @@ class CDSApiClient
      */
     private $_sellerPoint = null;
 
+    private $_username;
+    private  $_password;
+
+    public function __construct($username, $password)
+    {
+
+        $this->_username = $username;
+        $this->_password = $password;
+    }
+
     /**
      * @return SellerPoint
      */
@@ -158,7 +168,7 @@ class CDSApiClient
      */
     public function init()
     {
-        $token = Token::getInstance()->getToken();
+        $token = Token::getInstance()->getToken($this->_username, $this->_password);
         return $token;
     }
 

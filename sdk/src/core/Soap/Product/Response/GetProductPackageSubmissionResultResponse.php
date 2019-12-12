@@ -19,7 +19,7 @@ class GetProductPackageSubmissionResultResponse extends iResponse
     /**
      * @var array
      */
-    private $_dataResponse = null;
+    public $_dataResponse = null;
 
     /**
      * @var int

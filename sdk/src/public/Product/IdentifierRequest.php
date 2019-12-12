@@ -49,6 +49,8 @@ class IdentifierRequest
      */
     public function addValue($value)
     {
-        array_push($this->_valueList, $value);
+        if (!in_array($value, $this->_valueList)) {
+            array_push($this->_valueList, $value);
+        }
     }
 }

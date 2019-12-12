@@ -33,10 +33,10 @@ class GetModelListResponse extends ModelListResponse
              * Global informations
              */
             $this->_setGlobalInformations();
-
-            $modelListXML = $this->_dataResponse['s:Body'][$this->_tagXML][$this->_tagResultXML]['ModelList']['ProductModel'];
-
-            $this->_addProductModel($modelListXML);
+            if (isset($this->_dataResponse['s:Body'][$this->_tagXML][$this->_tagResultXML]['ModelList']['ProductModel'])) {
+                $modelListXML = $this->_dataResponse['s:Body'][$this->_tagXML][$this->_tagResultXML]['ModelList']['ProductModel'];
+                $this->_addProductModel($modelListXML);
+            }
         }
     }
 

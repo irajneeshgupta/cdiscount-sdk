@@ -14,8 +14,10 @@ use Sdk\Soap\Offer\OfferFilter;
 use Sdk\Soap\Offer\Response\GetOfferListPaginatedResponse;
 use Sdk\Soap\Offer\Response\GetOfferListResponse;
 use Sdk\Soap\Offer\Response\GetOfferPackageSubmissionResultResponse;
+use Sdk\Soap\Offer\Response\SubmitOfferStateActionResponse;
 use Sdk\Soap\Offer\Response\SubmitOfferPackageResponse;
 use Sdk\Soap\Offer\SubmitOfferPackage;
+use Sdk\Soap\Offer\submitOfferStateAction;
 
 /**
  * Created by CDiscount
@@ -66,13 +68,13 @@ class OfferPoint
      */
     public function getOfferListPaginated($offerFilter, $offerPoolId)
     {
-        $envelope = new Envelope();
+        $envelope = new Envelope('xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays"');
         $body = new Body();
         $getOfferList = new GetOfferListPaginated();
         $header = new HeaderMessage();
 
         $headerXML = $header->generateHeader();
-        $offerFilterSoap = new OfferFilter(null);
+        $offerFilterSoap = new OfferFilter($offerFilter->getSellerproductIds());
         $offerFilterSoap->setOfferPoolId($offerPoolId);
         $offerFilterSoap->setOfferFilter($offerFilter);
 
@@ -110,6 +112,36 @@ class OfferPoint
         $response = $this->_sendRequest('SubmitOfferPackage', $envelopeXML);
 
         $submitProductPackageResponse = new SubmitOfferPackageResponse($response);
+        return $submitProductPackageResponse;
+    }
+
+
+    /**
+     * Added by CedCommerce@davetaylor
+     * @param $offerPackageURL
+     * @return SubmitOfferPackageResponse
+     */
+    public function submitOfferStateAction($productUpdate, $status)
+    {
+        $envelope = new Envelope();
+        $body = new Body();
+        $submitProductPackage = new SubmitOfferStateAction();
+        $header = new HeaderMessage();
+
+        $submitRequestXML = $submitProductPackage->generatePackageRequestXML($productUpdate, $status);
+
+        $headerXML = $header->generateHeader();
+        $submitProductPackageXML = $submitProductPackage->generateEnclosingBalise($headerXML . $submitRequestXML);
+        $bodyXML = $body->generateXML($submitProductPackageXML);
+        $envelopeXML = $envelope->generateXML($bodyXML);
+
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
+        $response = $this->_sendRequest('SubmitOfferStateAction', $envelopeXML);
+
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
+        $submitProductPackageResponse = new SubmitOfferStateActionResponse($response);
         return $submitProductPackageResponse;
     }
 

@@ -43,7 +43,7 @@ class Security
 
     private $_inlineTAG = 'i:nil';
 
-    public function __construct($prefix, $domainRightsList = 'true', $issuerID = 'true', $sessionID = 'true', $subjectLocality = 'true', $userName = 'true')
+    public function __construct($prefix, $domainRightsList = 'true', $issuerID = 'true', $sessionID = 'true', $subjectLocality = 'true', $userName = 'cedcommerce')
     {
         $this->_globalPrefix = $prefix;
 

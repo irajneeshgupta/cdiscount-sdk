@@ -110,8 +110,10 @@ class ModelListResponse extends iResponse
         if (isset($productModelXML['Definition']['MandatoryModelProperties']) && !SoapTools::isSoapValueNull($productModelXML['Definition']['MandatoryModelProperties'])
             && isset($productModelXML['Definition']['MandatoryModelProperties']['a:string'])) {
 
-            var_dump($productModelXML['Definition']['MandatoryModelProperties']);
-
+            if (!is_array($productModelXML['Definition']['MandatoryModelProperties']['a:string'])) {
+                $productModelXML['Definition']['MandatoryModelProperties']['a:string'] =
+                    array($productModelXML['Definition']['MandatoryModelProperties']['a:string']);
+            }
             foreach ($productModelXML['Definition']['MandatoryModelProperties']['a:string'] as $mandatoryModelProperty) {
                 $productModel->addMandatoryModelProperty($mandatoryModelProperty);
             }

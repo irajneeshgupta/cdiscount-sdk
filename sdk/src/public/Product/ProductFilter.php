@@ -11,4 +11,13 @@ namespace Sdk\Product;
 
 class ProductFilter extends Filter
 {
+
+    /**
+     * ProductFilter constructor.
+     * @param $categoryCode
+     */
+    public function __construct($categoryCode)
+    {
+        parent::__construct($categoryCode);
+    }
 }

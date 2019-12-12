@@ -13,6 +13,8 @@ class OfferFilter
 {
     private $_pageNumber = 0;
 
+    private $_sellerProductIdList = array();
+
     /**
      * @return int
      */
@@ -27,5 +29,15 @@ class OfferFilter
     public function setPageNumber($pageNumber)
     {
         $this->_pageNumber = $pageNumber;
+    }
+
+    public function setSellerproductIds(array $ids)
+    {
+        $this->_sellerProductIdList = $ids;
+    }
+
+    public function getSellerproductIds()
+    {
+        return $this->_sellerProductIdList;
     }
 }

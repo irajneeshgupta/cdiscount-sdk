@@ -150,10 +150,11 @@ class GetOrderListResponse extends iResponse
                     if (isset($order['ModGesLog']) && !SoapTools::isSoapValueNull($order['ModGesLog'])) {
                         $orderObj->setModGesLog($order['ModGesLog']);
                     }
+                    if(isset($order['ParcelList'])){
+                        $parcelList = $this->_getParcelList($order['ParcelList']);
+                        $orderObj->setParcelList($parcelList);
+                    }
 
-                    $parcelList = $this->_getParcelList($order['ParcelList']);
-                    $orderObj->setParcelList($parcelList);
-                    
                     if (isset($order['VoucherList']) && !SoapTools::isSoapValueNull($order['VoucherList'])) {
                         $voucherList = $this->_getVoucherList($order['VoucherList']);
                         $orderObj->setVoucherList($voucherList);
@@ -286,17 +287,17 @@ class GetOrderListResponse extends iResponse
             $orderLine->setDeliveryDateMax($orderLineListOBJ['DeliveryDateMax']);
             $orderLine->setDeliveryDateMin($orderLineListOBJ['DeliveryDateMin']);
 
-            if ($orderLineListOBJ['HasClaim'] == 'true') {
+            if (isset($orderLineListOBJ['HasClaim']) && $orderLineListOBJ['HasClaim'] == 'true') {
                 $orderLine->setHasClaim(true);
             }
             $orderLine->setInitialPrice($orderLineListOBJ['InitialPrice']);
-            if ($orderLineListOBJ['IsCDAV'] == 'true') {
+            if (isset($orderLineListOBJ['IsCDAV']) && $orderLineListOBJ['IsCDAV'] == 'true') {
                 $orderLine->setCdav(true);
             }
-            if ($orderLineListOBJ['IsNegotiated'] == 'true') {
+            if (isset($orderLineListOBJ['IsNegotiated']) && $orderLineListOBJ['IsNegotiated'] == 'true') {
                 $orderLine->setIsNegotiated(true);
             }
-            if ($orderLineListOBJ['IsProductEanGenerated'] == 'true') {
+            if (isset($orderLineListOBJ['IsProductEanGenerated']) && $orderLineListOBJ['IsProductEanGenerated'] == 'true') {
                 $orderLine->setProductEanGenerated(true);
             }
             $orderLine->setName($orderLineListOBJ['Name']);

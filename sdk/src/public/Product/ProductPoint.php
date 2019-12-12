@@ -106,7 +106,18 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetAllowedCategoryTree', $envelopeXML);
 
-        return new GetAllowedCategoryTreeResponse($response);
+        $allowedCategoryTreeResponse = new GetAllowedCategoryTreeResponse($response);
+
+        $result =array();
+        if ($allowedCategoryTreeResponse->hasError()) {
+            $result['error'] = "Error : " . $allowedCategoryTreeResponse->getErrorMessage();
+
+        }
+        else {
+            $result['success'] = $response;
+        }
+
+        return $result;
     }
 
     /**

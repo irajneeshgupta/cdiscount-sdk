@@ -80,9 +80,12 @@ class GetProductListByIdentifierResponse extends iResponse
      */
     private function _getProductList()
     {
-        foreach ($this->_dataResponse['s:Body']['GetProductListByIdentifierResponse']['GetProductListByIdentifierResult']['a:ProductListByIdentifier']['a:ProductByIdentifier'] as $productXML) {                 
-           
-            $product = new ProductIdentity($productXML['a:Ean']);                
+        if (!isset($this->_dataResponse['s:Body']['GetProductListByIdentifierResponse']['GetProductListByIdentifierResult']['a:ProductListByIdentifier']['a:ProductByIdentifier'][0])) {
+            $this->_dataResponse['s:Body']['GetProductListByIdentifierResponse']['GetProductListByIdentifierResult']['a:ProductListByIdentifier']['a:ProductByIdentifier'] =
+                array($this->_dataResponse['s:Body']['GetProductListByIdentifierResponse']['GetProductListByIdentifierResult']['a:ProductListByIdentifier']['a:ProductByIdentifier']);
+        };
+        foreach ($this->_dataResponse['s:Body']['GetProductListByIdentifierResponse']['GetProductListByIdentifierResult']['a:ProductListByIdentifier']['a:ProductByIdentifier'] as $productXML) {
+            $product = new ProductIdentity($productXML['a:Ean']);
             if($productXML['a:HasError'] == 'true')
             {
                 if (isset($productXML['a:HasError']) && !SoapTools::isSoapValueNull($productXML['a:HasError'])) 
