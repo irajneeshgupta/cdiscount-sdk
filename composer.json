@@ -1,7 +1,6 @@
 {
     "name": "cedcommerce/cdiscount-sdk",
     "description": "PHP SDK for the Cdiscount Marketplace API",
-    "type": "project",
     "autoload": {
         "files": ["sdk/autoload.php"]
     },
