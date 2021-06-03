@@ -24,7 +24,7 @@ class ManageParcelRequest
     /**
      * @var array
      */
-    private $_parcelActionsList = array();
+    private $_parcelActionsList = null;
     
     /**
      * @return array
@@ -48,7 +48,8 @@ class ManageParcelRequest
      */
     public function __construct($scopusId) 
     {
-        $this->_scopusId = $scopusId;
+        $this-> _scopusId = $scopusId;
+        $this->_parcelActionsList = array();
     }
 }
 

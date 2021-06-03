@@ -63,7 +63,8 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetProductListByIdentifier', $envelopeXML);
 
-        return new GetProductListByIdentifierResponse($response);
+        $getProductListByIdentifierResponse = new GetProductListByIdentifierResponse($response);
+        return $getProductListByIdentifierResponse;
     }
 
     /**
@@ -86,7 +87,8 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetProductList', $envelopeXML);
 
-        return new GetProductListResponse($response);
+        $getProductListResponse = new GetProductListResponse($response);
+        return $getProductListResponse;
     }
 
     /**
@@ -104,7 +106,10 @@ class ProductPoint
         $bodyXML = $body->generateXML($allowedCategoryTreeXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
-        $response = $this->_sendRequest('GetAllowedCategoryTree', $envelopeXML);
+        $response = $this->_sendRequest('GetAllowedCategoryTree', $envelopeXML); //@ToDo uncomment this davetaylor
+        /*$dir = '/opt/lampp/htdocs/magento1/magento_cdiscount/var/cat.xml';
+        $myfile  = fopen($dir, 'r');
+        $response =  (string)fread($myfile,filesize($dir));*/
 
         $allowedCategoryTreeResponse = new GetAllowedCategoryTreeResponse($response);
 
@@ -118,6 +123,8 @@ class ProductPoint
         }
 
         return $result;
+
+
     }
 
     /**
@@ -137,7 +144,9 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetAllAllowedCategoryTree', $envelopeXML);
 
-        return new GetAllAllowedCategoryTreeResponse($response);
+        $allowedCategoryTreeResponse = new GetAllAllowedCategoryTreeResponse($response);
+
+        return $allowedCategoryTreeResponse;
     }
 
     /**
@@ -160,7 +169,13 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetModelList', $envelopeXML);
 
-        return new GetModelListResponse($response);
+
+        /*$dir = '/opt/lampp/htdocs/magento1/magento_cdiscount/var/model.xml';
+        $myfile  = fopen($dir, 'r');
+        $response =  (string)fread($myfile,filesize($dir));*/
+
+        $getModelListResponse = new GetModelListResponse($response);
+        return $getModelListResponse;
     }
 
     /**
@@ -180,7 +195,9 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetAllModelList', $envelopeXML);
 
-        return new GetAllModelListResponse($response);
+        $getAllModelListResponse = new GetAllModelListResponse($response);
+
+        return $getAllModelListResponse;
     }
 
     /**
@@ -200,7 +217,9 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetBrandList', $envelopeXML);
 
-        return new GetBrandListResponse($response);
+        $getBrandListResponse = new GetBrandListResponse($response);
+
+        return $getBrandListResponse;
     }
 
     /**
@@ -223,7 +242,8 @@ class ProductPoint
 
         $response = $this->_sendRequest('SubmitProductPackage', $envelopeXML);
 
-        return new SubmitProductPackageResponse($response);
+        $submitProductPackageResponse = new SubmitProductPackageResponse($response);
+        return $submitProductPackageResponse;
     }
 
     /**
@@ -246,7 +266,8 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetProductPackageSubmissionResult', $envelopeXML);
 
-        return new GetProductPackageSubmissionResultResponse($response);
+        $getProductPackageSubmissionResultResponse = new GetProductPackageSubmissionResultResponse($response);
+        return $getProductPackageSubmissionResultResponse;
     }
 
     /**
@@ -270,7 +291,9 @@ class ProductPoint
 
         $response = $this->_sendRequest('GetProductPackageProductMatchingFileData', $envelopeXML);
 
-        return new GetProductPackageProductMatchingFileDataResponse($response);
+        $getProductPackageProductMatchingFileDataResponse = new GetProductPackageProductMatchingFileDataResponse($response);
+
+        return $getProductPackageProductMatchingFileDataResponse;
     }
 
     /**
@@ -285,8 +308,11 @@ class ProductPoint
         $apiURL = ConfigFileLoader::getInstance()->getConfAttribute('url');
 
         $request = new CDSApiSoapRequest($method, $headerRequestURL, $apiURL, $data);
+        $response = $request->call();
 
-        return $request->call();
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
+        return $response;
     }
 
 

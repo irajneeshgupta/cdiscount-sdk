@@ -23,6 +23,14 @@ use Sdk\Soap\Seller\Response\GetSellerIndicatorsResponse;
  */
 class SellerPoint
 {
+
+    /**
+     * SellerPoint constructor.
+     */
+    public function __construct()
+    {
+    }
+
     /**
      * @return GetSellerInformationResponse
      */
@@ -37,10 +45,9 @@ class SellerPoint
         $getSellerInfoXML = $getSellerInfo->generateEnclosingBalise($headerXML);
         $bodyXML = $body->generateXML($getSellerInfoXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
-
         $response = $this->_sendRequest('GetSellerInformation', $envelopeXML);
-
-        return new GetSellerInformationResponse($response);
+        $sellerInfoResponse = new GetSellerInformationResponse($response);
+        return $sellerInfoResponse;
     }
 
     /**
@@ -58,9 +65,14 @@ class SellerPoint
         $bodyXML = $body->generateXML($getSellerInfoXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('GetSellerIndicators', $envelopeXML);
 
-        return new GetSellerIndicatorsResponse($response);
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
+        $getSellerIndicatorsResponse = new GetSellerIndicatorsResponse($response);
+        return $getSellerIndicatorsResponse;
     }
 
     /**
@@ -75,7 +87,14 @@ class SellerPoint
         $apiURL = ConfigFileLoader::getInstance()->getConfAttribute('url');
 
         $request = new CDSApiSoapRequest($method, $headerRequestURL, $apiURL, $data);
+        $response = $request->call();
 
-        return $request->call();
+        /*echo "-------------------<br/>";
+
+        echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
+        echo "-------------------<br/>";*/
+
+        return $response;
     }
 }

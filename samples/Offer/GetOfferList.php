@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by guillaume.cochard.
- * Mail: guillaume.cochard@ext.cdiscount.com
+ * Created by CDiscount
+ * Created by CDiscount
  * Date: 07/11/2016
  * Time: 17:28
  */
@@ -23,9 +23,7 @@ if ($token == null || !$client->isTokenValid()) {
 
 $offerPoint = $client->getOfferPoint();
 
-$offerPoolId = 1;
-
-$offerListResponse = $offerPoint->getOfferList(null, $offerPoolId);
+$offerListResponse = $offerPoint->getOfferList(null);
 
 /** @var \Sdk\Offer\Offer $offer */
 foreach ($offerListResponse->getOfferList() as $offer) {
@@ -39,7 +37,6 @@ foreach ($offerListResponse->getOfferList() as $offer) {
     echo "IntegrationPrice : " . $offer->getIntegrationPrice() . "<br/>";
     echo "IsCDAV : " . $offer->isIsCDAV() . "<br/>";
     echo "LastUpdateDate : " . $offer->getLastUpdateDate() . "<br/>";
-    echo "LogisticMode : " . $offer->getLogisticMode() . "<br/>";
     echo "MinimumPriceForPriceAlignment : " . $offer->getMinimumPriceForPriceAlignment() . "<br/>";
 
     /** @var \Sdk\Offer\OfferPool $offerPool */

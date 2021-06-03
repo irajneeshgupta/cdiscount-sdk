@@ -53,7 +53,6 @@ class Security
         $this->_subjectLocality = $subjectLocality;
         $this->_tokenId = Token::getInstance()->getToken();
         $this->_userName = $userName;
-
         $this->_xmlUtil = new XmlUtils($prefix);
     }
 
@@ -65,9 +64,8 @@ class Security
         $obj .= $this->_xmlUtil->generateAutoClosingBalise($this->_SessionIDTAG, $this->_inlineTAG, $this->_sessionID);
         $obj .= $this->_xmlUtil->generateAutoClosingBalise($this->_subjectLocalityTAG, $this->_inlineTAG, $this->_subjectLocality);
         $obj .= $this->_xmlUtil->generateBalise($this->_tokenIdTAG, $this->_tokenId);
-        $obj .= $this->_xmlUtil->generateAutoClosingBalise($this->_userNameTAG, $this->_inlineTAG, $this->_userName);
+        $obj .= $this->_xmlUtil->generateBalise($this->_userNameTAG, $this->_userName);
         $obj .= $this->_xmlUtil->generateCloseBalise($this->_tag);
-
         return $obj;
     }
 }

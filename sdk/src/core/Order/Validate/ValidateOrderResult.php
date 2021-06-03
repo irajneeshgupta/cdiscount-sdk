@@ -16,6 +16,15 @@ class ValidateOrderResult extends Order
     private $_validated = false;
 
     /**
+     * ValidateOrderResult constructor.
+     * @param string $orderNumber
+     */
+    public function __construct($orderNumber)
+    {
+        parent::__construct($orderNumber);
+    }
+
+    /**
      * @param $validated
      */
     public function setValidated($validated)

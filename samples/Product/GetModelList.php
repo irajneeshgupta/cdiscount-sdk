@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by guillaume.cochard.
- * Mail: guillaume.cochard@ext.cdiscount.com
+ * Created by CDiscount
+ * Created by CDiscount
  * Date: 02/11/2016
  * Time: 11:29
  */
@@ -22,7 +22,7 @@ if ($token == null || !$client->isTokenValid()) {
 
 /******* GET MODEL LIST *******/
 
-$modelFilter = new \Sdk\Product\ModelFilter(/* CategoryCode */ '06010201');
+$modelFilter = new \Sdk\Product\ModelFilter(/* CategoryCode */ '06040201');
 
 $productPoint = $client->getProductPoint();
 
@@ -43,12 +43,6 @@ foreach ($getModelListResponse->getModelList() as $productModel) {
         foreach ($property->getValues() as $value) {
             echo " -- value : " . $value . "<br/>";
         }
-    }
-	
-	echo "<br/>MandatoryModelProperties : <br/>";
-	
-	foreach ($productModel->getMandatoryModelProperties() as $mandatoryModelProperty) {
-            echo " -- " . $mandatoryModelProperty . "<br/>";
     }
 
 }

@@ -37,6 +37,7 @@ class GetModelListResponse extends ModelListResponse
                 $modelListXML = $this->_dataResponse['s:Body'][$this->_tagXML][$this->_tagResultXML]['ModelList']['ProductModel'];
                 $this->_addProductModel($modelListXML);
             }
+
         }
     }
 

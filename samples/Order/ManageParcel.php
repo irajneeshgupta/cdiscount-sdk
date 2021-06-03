@@ -1,64 +1,60 @@
 <?php
-
 /**
- * Description of ManageParcel
- * @Mail mohammed.sajid@ext.cdiscount.com
- * @author mohammed.sajid
+ * Created by Cdiscount.
+ * Date: 14/12/2016
+ * Time: 15:22
  */
 
 require '../../vendor/autoload.php';
 require '../../sdk/autoload.php';
 
-use \Sdk\Order\ManageParcelRequest;
-use \Sdk\Order\ParcelInfos;
-
-error_reporting(-1);
-
+/**
+ * Create and init the CDSApiClient
+ */
 $client = new \Sdk\ApiClient\CDSApiClient();
 $token = $client->init();
 
 if ($token == null || !$client->isTokenValid()) {
-    echo "Oups, souci lors de la génération du token";
+    echo "Erreur lors de la génération du token, veuillez vérifier vos identifiants dans le fichier de configuration.";
     die;
 }
 
+/**
+ * Get the Order Point
+ */
 $orderPoint = $client->getOrderPoint();
 
-$manageParcelRequest = new ManageParcelRequest('16101720500TP7I');
-$parcelInfos = new ParcelInfos('9V30221431727');
-$parcelInfos->setSku('DRT3660050026626');
-$parcelInfos->setManageParcel('AskingForDeliveryCertification');
-$manageParcelRequest->addParcelActionsList($parcelInfos);
+/**
+ * Create a ManageParcelRequest and fill it
+ */
+$request = new \Sdk\Order\ManageParcelRequest(/* ScopusId */ '161014154004ZYX');
+$parcelInfo1 = new \Sdk\Order\ParcelInfos(/* ParcelNumber */ '9V30221426402');
+$parcelInfo1->setSku('WIK0683498200192');
+$parcelInfo1->setParcelActions('AskingForInvestigation');
+$request->addParcelAction($parcelInfo1);
 
-$response = $orderPoint->ManageParcel($manageParcelRequest);
+/**
+ * Call the manageParcel method
+ */
+$response = $orderPoint->manageParcel($request);
+
+/**
+ * Parse the ManageParcelResponse
+ */
 
 if ($response->getOperationSuccess() == false) {
-    if( $response->getErrorMessage() != null ){
-        echo 'Error : ' . $response->getErrorMessage();
-    } else if( $response->getErrorList() != null ) {
-        echo "Error List : <br/>";
-    
-        foreach ($response->getErrorList() as $error){
-            echo $error . '<br/>';
-        }
-    }
+    echo "Error : " . $response->getErrorMessage() . "<br/>";
     die;
-} else {
-    
-    echo '<br/><br/>Les élements du parcel action result list : <br/><br/>';
-    /*
-     * @var \Sdk\Order\ParcelActionResultList
-     */
-    foreach ($response->getParcelActionResults()->getParcelActionResultList() as $parcelActionResult)
-    {
-        if ($parcelActionResult->isOperationSuccess() == true)
-        {
-            echo "OperationSuccess :" . $parcelActionResult->isOperationSuccess() . "<br/>";
-            echo "Actiontype :" . $parcelActionResult->getActionType() . "<br/>";
-            echo "IsActionCreated :" . $parcelActionResult->isActionCreated() . "<br/>";
-            echo "ParcelNumber :" . $parcelActionResult->getParcelNumber() . "<br/><br/>";
-        } else {
-            echo "ErrorMessage :" . $parcelActionResult->getErrorMessage() . "<br/>";
-        }
+}
+
+/** @var \Sdk\Order\ParcelActionResult $actionResult */
+foreach ($response->getParcelActionResultList() as $actionResult) {
+
+    if ($actionResult->isOperationSuccess()) {
+        echo "ActionType::" . $actionResult->getActionType() . "<br/>";
+        echo "ParcelNumber::" . $actionResult->getParcelNumber() . "<br/><br/>";
+    }
+    else {
+        echo $actionResult->getErrorMessage() . "\n";
     }
 }

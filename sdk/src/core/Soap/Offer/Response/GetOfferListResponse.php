@@ -26,10 +26,7 @@ class GetOfferListResponse extends GetOfferListGenericResponse
             $this->_setGlobalInformations();
 
             /** Parse offer list */
-            if (isset($this->_dataResponse['s:Body']['GetOfferListResponse']['GetOfferListResult']['OfferList']) 
-                && isset($this->_dataResponse['s:Body']['GetOfferListResponse']['GetOfferListResult']['OfferList']['Offer'])) {
-                $this->_setOfferListFromXML($this->_dataResponse['s:Body']['GetOfferListResponse']['GetOfferListResult']['OfferList']);
-            }
+            $this->_setOfferListFromXML($this->_dataResponse['s:Body']['GetOfferListResponse']['GetOfferListResult']['OfferList']);
         }
     }
 

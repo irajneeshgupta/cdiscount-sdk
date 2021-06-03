@@ -69,7 +69,7 @@ class ProductModel
     /**
      * @var array
      */
-    private $_keyValueProperties = array();
+    private $_keyValueProperties = null;
 
     /**
      * @param $keyvalueObj
@@ -91,7 +91,7 @@ class ProductModel
 	/**
      * @var array
      */
-    private $_mandatoryModelProperties = array();
+    private $_mandatoryModelProperties= null;
 
     /**
      * @param $mandatoryModelProperty
@@ -138,5 +138,11 @@ class ProductModel
     public function __construct($modelD)
     {
         $this->_modelId = $modelD;
+        $this->_keyValueProperties = array();
+		$this->_mandatoryModelProperties = array();
     }
+
+
+
+
 }

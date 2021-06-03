@@ -103,30 +103,9 @@ class CategoryTree
     }
 
     /**
-     * @var boolean
-     */
-    private $_eanOptional = false;
-
-    /**
-     * @return boolean
-     */
-    public function isEanOptional()
-    {
-        return $this->_eanOptional;
-    }
-
-    /**
-     * @param boolean $eanOptional
-     */
-    public function setEanOptional($eanOptional)
-    {
-        $this->_eanOptional = $eanOptional;
-    }
-
-    /**
      * @var array \Sdk\Product\CategoryTree
      */
-    private $_childrenCategoryList = array();
+    private $_childrenCategoryList = null;
 
     /**
      * @return array
@@ -142,5 +121,10 @@ class CategoryTree
     public function addChild($child)
     {
         array_push($this->_childrenCategoryList, $child);
+    }
+
+    public function __construct()
+    {
+        $this->_childrenCategoryList = array();
     }
 }

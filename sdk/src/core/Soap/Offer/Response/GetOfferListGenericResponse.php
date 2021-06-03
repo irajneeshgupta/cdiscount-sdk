@@ -70,9 +70,6 @@ class GetOfferListGenericResponse extends iResponse
                 $offer->setIsCDAV(true);
             }
             $offer->setLastUpdateDate($offerXML['LastUpdateDate']);
-            if (isset($offerXML['LogisticMode'])) {
-                $offer->setLogisticMode($offerXML['LogisticMode']);
-            }
             $offer->setMinimumPriceForPriceAlignment($offerXML['MinimumPriceForPriceAlignment']);
 
             if (isset($offerXML['OfferBenchMark']['BestOfferPrice'])) {
@@ -89,8 +86,10 @@ class GetOfferListGenericResponse extends iResponse
                 if (isset($offerXML['OfferBenchMark']['ShippingCharges'])) {
                     $offerBenchMark->setShippingCharges(floatval($offerXML['OfferBenchMark']['ShippingCharges']));
                 }
-                $offer->setOfferBenchMark($offerBenchMark);
+                $offer->setOfferBenchMark(new OfferBenchMark());
             }
+
+            $offer->setOfferBenchMark($offerXML['OfferBenchMark']);
 
             /** OfferPool */
             if (isset($offerXML['OfferPoolList']['OfferPool'])) {

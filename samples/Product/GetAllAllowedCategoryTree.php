@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by guillaume.cochard.
- * Mail: guillaume.cochard@ext.cdiscount.com
+ * Created by CDiscount
+ * Created by CDiscount
  * Date: 16/11/2016
  * Time: 16:47
  */
@@ -52,7 +52,6 @@ function displayCategoryTree($categoryTreeRoot, $level, $client, $productPoint) 
         " - Name : " . $categoryTreeRoot->getName() .
         " - AllowOfferIntegration:  " . ($categoryTreeRoot->isAllowOfferIntegration() ? 'true' : 'false') .
         " - AllowProductIntegration:  " . ($categoryTreeRoot->isAllowProductIntegration() ? 'true' : 'false') .
-        " - EANOptional:  " . ($categoryTreeRoot->isEanOptional() ? 'true' : 'false') .
         "<br/>";
 
     /** @var \Sdk\Product\CategoryTree $catTree */

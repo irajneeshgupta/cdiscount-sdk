@@ -53,10 +53,7 @@ class GetOfferQuestionListResponse extends iResponse
 
             $this->_offerQuestionList = array();
 
-            if(isset($this->_dataResponse['s:Body']['GetOfferQuestionListResponse']['GetOfferQuestionListResult']['OfferQuestionList'])
-            && isset($this->_dataResponse['s:Body']['GetOfferQuestionListResponse']['GetOfferQuestionListResult']['OfferQuestionList']['OfferQuestion'])) {
-                $this->_generateOfferQuestionListFromXML($this->_dataResponse['s:Body']['GetOfferQuestionListResponse']['GetOfferQuestionListResult']['OfferQuestionList']);
-            }
+            $this->_generateOfferQuestionListFromXML($this->_dataResponse['s:Body']['GetOfferQuestionListResponse']['GetOfferQuestionListResult']['OfferQuestionList']);
         }
     }
 

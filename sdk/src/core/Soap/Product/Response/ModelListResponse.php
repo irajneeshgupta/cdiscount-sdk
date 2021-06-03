@@ -73,8 +73,6 @@ class ModelListResponse extends iResponse
      */
     protected function _hasErrorMessage()
     {
-
-
         $objError = $this->_dataResponse['s:Body'][$this->_tagXML][$this->_tagResultXML]['ErrorMessage'];
 
         if (isset($objError['_']) && strlen($objError['_']) > 0) {

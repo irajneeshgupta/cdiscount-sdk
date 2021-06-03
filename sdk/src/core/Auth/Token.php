@@ -81,11 +81,12 @@ class Token
         //$password = ConfigFileLoader::getInstance()->getConfAttribute('password');
 
         $urlToken = ConfigFileLoader::getInstance()->getConfAttribute('urltoken');
-
         $request = new CDSApiRequest($username, $password, $urlToken);
 
         libxml_use_internal_errors(true);
         $xmlResult = simplexml_load_string($request->execute());
+
+        //echo '<p>'.nl2br(htmlentities($xmlResult , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         //TODO gestion erreur token
 
@@ -108,8 +109,8 @@ class Token
      */
     public function getToken($username="", $password="")
     {
-        //TODO vérifier la date
 
+        //TODO vérifier la date
         if (!$this->_isValid) {
             $this->_generateNewToken($username, $password);
         }

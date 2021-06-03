@@ -13,7 +13,15 @@ class TrackingList
     /*
      * @var array
      */
-    private $_trackingList = array();
+    private $_trackingList = null;
+    
+    /*
+     * TrackingList constructor
+     */
+    public function __construct() 
+    {
+        $this->_trackingList = array();
+    }
 
     /*
      * @return array

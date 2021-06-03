@@ -72,6 +72,7 @@ class GetSellerInformationResponse extends iResponse
         $reader = new \Zend\Config\Reader\Xml();
         $this->_dataResponse = $reader->fromString($response);
 
+
         // Check for error messages
         if (!$this->_hasErrorMessage()) {
             /**
@@ -102,7 +103,7 @@ class GetSellerInformationResponse extends iResponse
      */
     private function _setSellerInformations()
     {
-        $objSellerResult = $this->_dataResponse['s:Body']['GetSellerInformationResponse']['GetSellerInformationResult']['Seller'];
+        $objSellerResult = $this->_dataResponse['s:Body']['GetSellerInformationResponse']['GetSellerInformationResult']{'Seller'};
         $this->_seller->setEmail($objSellerResult['Email']);
         $this->_seller->setIsAvailable($objSellerResult['IsAvailable']);
         $this->_seller->setLogin($objSellerResult['Login']);

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Created by guillaume.cochard.
- * Mail: guillaume.cochard@ext.cdiscount.com
+ * Created by CDiscount
+ * Created by CDiscount
  * Date: 08/11/2016
  * Time: 11:58
  */
@@ -23,11 +23,9 @@ if ($token == null || !$client->isTokenValid()) {
 $offerFilter = new \Sdk\Offer\OfferFilter();
 $offerFilter->setPageNumber(1);
 
-$offerPoolId = 2;
-
 $offerPoint = $client->getOfferPoint();
 
-$offerListResponse = $offerPoint->getOfferListPaginated($offerFilter, $offerPoolId);
+$offerListResponse = $offerPoint->getOfferListPaginated($offerFilter);
 
 echo "CurrentPageNumber : " . $offerListResponse->getCurrentPageNumber() . " - NumberOfPages : " . $offerListResponse->getNumberOfPages() . "<br/>";
 
@@ -43,7 +41,6 @@ foreach ($offerListResponse->getOfferList() as $offer) {
     echo "IntegrationPrice : " . $offer->getIntegrationPrice() . "<br/>";
     echo "IsCDAV : " . $offer->isIsCDAV() . "<br/>";
     echo "LastUpdateDate : " . $offer->getLastUpdateDate() . "<br/>";
-    echo "LogisticMode : " . $offer->getLogisticMode() . "<br/>";
     echo "MinimumPriceForPriceAlignment : " . $offer->getMinimumPriceForPriceAlignment() . "<br/>";
 
     /** @var \Sdk\Offer\OfferPool $offerPool */

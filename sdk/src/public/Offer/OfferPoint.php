@@ -16,6 +16,7 @@ use Sdk\Soap\Offer\Response\GetOfferListResponse;
 use Sdk\Soap\Offer\Response\GetOfferPackageSubmissionResultResponse;
 use Sdk\Soap\Offer\Response\SubmitOfferStateActionResponse;
 use Sdk\Soap\Offer\Response\SubmitOfferPackageResponse;
+
 use Sdk\Soap\Offer\SubmitOfferPackage;
 use Sdk\Soap\Offer\submitOfferStateAction;
 
@@ -35,14 +36,7 @@ class OfferPoint
      */
     public function getOfferList($productList, $offerPoolId)
     {
-        $optionalsNamespaces = array('xmlns:cdis="http://www.cdiscount.com"', 'xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays"');
-
         $envelope = new Envelope();
-
-        foreach ($optionalsNamespaces as $namespace) {
-            $envelope->addNameSpace($namespace);
-        }
-
         $body = new Body();
         $getOfferList = new GetOfferList();
         $header = new HeaderMessage();
@@ -55,7 +49,11 @@ class OfferPoint
         $bodyXML = $body->generateXML($getOfferListXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
+        echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('GetOfferList', $envelopeXML);
+
+        echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $getOfferListResponse = new GetOfferListResponse($response);
         return $getOfferListResponse;
@@ -84,8 +82,9 @@ class OfferPoint
         $bodyXML = $body->generateXML($getOfferListXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
-        $response = $this->_sendRequest('GetOfferListPaginated', $envelopeXML);
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
+        $response = $this->_sendRequest('GetOfferListPaginated', $envelopeXML);
         $getOfferListPaginatedResponse = new GetOfferListPaginatedResponse($response);
 
         return $getOfferListPaginatedResponse;
@@ -109,7 +108,11 @@ class OfferPoint
         $bodyXML = $body->generateXML($submitProductPackageXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('SubmitOfferPackage', $envelopeXML);
+
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $submitProductPackageResponse = new SubmitOfferPackageResponse($response);
         return $submitProductPackageResponse;
@@ -149,7 +152,7 @@ class OfferPoint
      * @param $packageId
      * @return GetOfferPackageSubmissionResultResponse
      */
-    public function getOfferPackageSubmissionResult($packageId)
+    public function c($packageId)
     {
         $envelope = new Envelope();
         $body = new Body();
@@ -165,6 +168,7 @@ class OfferPoint
 
         $response = $this->_sendRequest('GetOfferPackageSubmissionResult', $envelopeXML);
 
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
         $getOfferPackageSubmissionResultResponse = new GetOfferPackageSubmissionResultResponse($response);
         return $getOfferPackageSubmissionResultResponse;
     }
@@ -180,6 +184,8 @@ class OfferPoint
 
         $apiURL = ConfigFileLoader::getInstance()->getConfAttribute('url');
 
+//        print_r($data);
+//        print_r($method);die;
         $request = new CDSApiSoapRequest($method, $headerRequestURL, $apiURL, $data);
         $response = $request->call();
 

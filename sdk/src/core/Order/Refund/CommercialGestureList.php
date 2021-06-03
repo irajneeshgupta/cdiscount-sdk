@@ -16,7 +16,15 @@ class CommercialGestureList
     /*
      * @var array
      */
-    private $_commercialGestureList = array();
+    private $_commercialGestureList = null;
+    
+    /*
+     * Commercial gesture list constructor
+     */
+    public function __construct() 
+    {
+        $this->_commercialGestureList = array();
+    }
     
     /*
      * @return array

@@ -34,19 +34,18 @@ class DiscussionPoint
      */
     public function getOrderClaimList($claimFilter)
     {
-        //$optionalsNamespaces = array('xmlns:cdis="http://www.cdiscount.com"', 'xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays"');
-        $optionalsNamespaces = array(
-        		'xmlns:cdis="http://www.cdiscount.com"', 
-        		'xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays"',
-        		'xmlns:i="http://www.w3.org/2001/XMLSchema-instance"',
-        );
-        
+        $optionalsNamespaces = array('xmlns:cdis="http://www.cdiscount.com"', 'xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays"');
+
         $getOrderClaimList = new GetOrderClaimList();
         $claimFilterSoap = new ClaimFilterSoap($optionalsNamespaces);
 
         $envelopeXML = $this->_buildGenericListXML($getOrderClaimList, $claimFilterSoap, $claimFilter, $optionalsNamespaces);
 
+        echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('GetOrderClaimList', $envelopeXML);
+
+        echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $getOrderClaimListResponse = new GetOrderClaimListResponse($response);
         return $getOrderClaimListResponse;
@@ -64,7 +63,11 @@ class DiscussionPoint
 
         $envelopeXML = $this->_buildGenericListXML($getOrderQuestionList, $orderQuestionFilterSoap, $orderQuestionFilter);
 
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('GetOrderQuestionList', $envelopeXML);
+
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $getOrderQuestionListResponse = new GetOrderQuestionListResponse($response);
         return $getOrderQuestionListResponse;
@@ -82,7 +85,11 @@ class DiscussionPoint
 
         $envelopeXML = $this->_buildGenericListXML($getOfferQuestionList, $offerQuestionFilterSoap, $orderQuestionFilter);
 
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('GetOfferQuestionList', $envelopeXML);
+
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $getOfferQuestionListResponse = new GetOfferQuestionListResponse($response);
         return $getOfferQuestionListResponse;
@@ -106,7 +113,11 @@ class DiscussionPoint
         $bodyXML = $body->generateXML($closeDiscussionListXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
+        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $response = $this->_sendRequest('CloseDiscussionList', $envelopeXML);
+
+        //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $closeDiscussionListResponse = new CloseDiscussionListResponse($response);
         return $closeDiscussionListResponse;

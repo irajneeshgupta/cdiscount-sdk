@@ -15,7 +15,6 @@ use Sdk\Order\OrderPoint;
 use Sdk\Product\ProductPoint;
 use Sdk\Relays\RelaysPoint;
 use Sdk\Seller\SellerPoint;
-use Sdk\Fulfilment\FulfilmentPoint;
 
 /**
  * Class CDSApiClient
@@ -97,22 +96,6 @@ class CDSApiClient
             $this->_productPoint = new ProductPoint();
         }
         return $this->_productPoint;
-    }
-
-    /**
-     * @var \Sdk\Fulfilment\FulfilmentPoint
-     */
-    private $_fulfilmentPoint = null;
-
-    /**
-     * @return FulfilmentPoint
-     */
-    public function getFulfilmentPoint()
-    {
-        if ($this->_fulfilmentPoint == null) {
-            $this->_fulfilmentPoint = new FulfilmentPoint();
-        }
-        return $this->_fulfilmentPoint;
     }
 
     /**

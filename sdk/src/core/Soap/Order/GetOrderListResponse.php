@@ -166,7 +166,7 @@ class GetOrderListResponse extends iResponse
 
                     $address = $this->_getAddress($order['ShippingAddress']);
                     $orderObj->setShippingAddress($address);
-                    $orderObj->setShippingCode($order['ShippingCode']);
+
                     $orderObj->setSiteCommissionPromisedAmount(floatval($order['SiteCommissionPromisedAmount']));
                     $orderObj->setSiteCommissionShippedAmount(floatval($order['SiteCommissionShippedAmount']));
                     $orderObj->setSiteCommissionValidatedAmount(floatval($order['SiteCommissionValidatedAmount']));
@@ -318,7 +318,7 @@ class GetOrderListResponse extends iResponse
             $orderLine->setUnitAdditionalShippingCharges(floatval($orderLineListOBJ['UnitAdditionalShippingCharges']));
             $orderLine->setUnitShippingCharges(floatval($orderLineListOBJ['UnitShippingCharges']));
             
-            if (isset ($orderLineListOBJ['RefundShippingCharges']) && $orderLineListOBJ['RefundShippingCharges']== 'true') {
+            if ($orderLineListOBJ['RefundShippingCharges'] == 'true') {
                 $orderLine->setRefundShippingCharges(true);
             }
             $orderLineList->addOrderLine($orderLine);
