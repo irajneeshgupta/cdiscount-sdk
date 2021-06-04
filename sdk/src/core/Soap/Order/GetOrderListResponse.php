@@ -170,6 +170,7 @@ class GetOrderListResponse extends iResponse
                     $orderObj->setSiteCommissionPromisedAmount(floatval($order['SiteCommissionPromisedAmount']));
                     $orderObj->setSiteCommissionShippedAmount(floatval($order['SiteCommissionShippedAmount']));
                     $orderObj->setSiteCommissionValidatedAmount(floatval($order['SiteCommissionValidatedAmount']));
+                    $orderObj->setShippingCode($order['ShippingCode']);
 
                     $orderObj->setStatus($order['Status']);
 
