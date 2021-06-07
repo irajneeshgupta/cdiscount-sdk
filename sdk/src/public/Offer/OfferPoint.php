@@ -152,7 +152,7 @@ class OfferPoint
      * @param $packageId
      * @return GetOfferPackageSubmissionResultResponse
      */
-    public function c($packageId)
+    public function getOfferPackageSubmissionResult($packageId)
     {
         $envelope = new Envelope();
         $body = new Body();
