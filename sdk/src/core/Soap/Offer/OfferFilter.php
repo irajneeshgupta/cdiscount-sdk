@@ -73,22 +73,21 @@ class OfferFilter extends BaliseTool
         /** OfferPoolId **/
         $xml .= $this->_xmlUtil->generateBalise($this->OfferPoolIdTAG, $this->_offerPoolId);
 
-        if ($this->_offerFilter != null) {
-
-            /** Page number **/
-            $xml .= $this->_xmlUtil->generateBalise($this->PageNumberTAG, $this->_offerFilter->getPageNumber());
-        }
-
         if ($this->_productList != null) {
 
             /** SellerProductIdList **/
             $xml .= $this->_xmlUtil->generateOpenBalise($this->SellerProductIdListTAG);
             foreach ($this->_productList as $product) {
-                $xml .= $this->_xmlUtil->generateBalise('arr:string', $product);
+                $xml .= $this->_xmlUtil->generateBalise('s:string', $product);
             }
             $xml .= $this->_xmlUtil->generateCloseBalise($this->SellerProductIdListTAG);
         }
 
+        if ($this->_offerFilter != null) {
+
+            /** Page number **/
+            $xml .= $this->_xmlUtil->generateBalise($this->PageNumberTAG, $this->_offerFilter->getPageNumber());
+        }
         $xml .= $this->_xmlUtil->generateCloseBalise($this->offerFilterTAG);
         return $xml;
     }

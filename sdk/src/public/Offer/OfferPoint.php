@@ -66,13 +66,13 @@ class OfferPoint
      */
     public function getOfferListPaginated($offerFilter, $offerPoolId)
     {
-        $envelope = new Envelope('xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays"');
+        $envelope = new Envelope();
         $body = new Body();
         $getOfferList = new GetOfferListPaginated();
         $header = new HeaderMessage();
 
         $headerXML = $header->generateHeader();
-        $offerFilterSoap = new OfferFilter($offerFilter->getSellerproductIds());
+        $offerFilterSoap = new OfferFilter(null);
         $offerFilterSoap->setOfferPoolId($offerPoolId);
         $offerFilterSoap->setOfferFilter($offerFilter);
 
@@ -82,9 +82,10 @@ class OfferPoint
         $bodyXML = $body->generateXML($getOfferListXML);
         $envelopeXML = $envelope->generateXML($bodyXML);
 
-        //echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+        echo '<p>'.nl2br(htmlentities($envelopeXML , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
 
         $response = $this->_sendRequest('GetOfferListPaginated', $envelopeXML);
+
         $getOfferListPaginatedResponse = new GetOfferListPaginatedResponse($response);
 
         return $getOfferListPaginatedResponse;
@@ -120,7 +121,7 @@ class OfferPoint
 
 
     /**
-     * Added by CedCommerce@davetaylor
+     * Added by CedCommerce@davetaylor   
      * @param $offerPackageURL
      * @return SubmitOfferPackageResponse
      */
@@ -169,6 +170,7 @@ class OfferPoint
         $response = $this->_sendRequest('GetOfferPackageSubmissionResult', $envelopeXML);
 
         //echo '<p>'.nl2br(htmlentities($response , ENT_QUOTES | ENT_IGNORE, "UTF-8")).'</p>';
+
         $getOfferPackageSubmissionResultResponse = new GetOfferPackageSubmissionResultResponse($response);
         return $getOfferPackageSubmissionResultResponse;
     }
@@ -184,8 +186,6 @@ class OfferPoint
 
         $apiURL = ConfigFileLoader::getInstance()->getConfAttribute('url');
 
-//        print_r($data);
-//        print_r($method);die;
         $request = new CDSApiSoapRequest($method, $headerRequestURL, $apiURL, $data);
         $response = $request->call();
 
